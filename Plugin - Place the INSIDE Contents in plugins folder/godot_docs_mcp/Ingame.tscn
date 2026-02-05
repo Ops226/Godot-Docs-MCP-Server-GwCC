@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bvhm8s3k7dq2l"]
+
+[ext_resource type="Theme" uid="uid://ctratp2uvuinq" path="res://assets/default_theme.tres" id="1_0dt8l"]
+[ext_resource type="Script" path="res://plugins/godot_docs_mcp/Ingame.gd" id="2_docs_mcp"]
+
+[node name="DocsMCP" type="Button" unique_id=842423621]
+offset_right = 25.0
+offset_bottom = 25.0
+theme = ExtResource("1_0dt8l")
+theme_type_variation = &"IconPluginButton"
+text = "book"
+script = ExtResource("2_docs_mcp")
