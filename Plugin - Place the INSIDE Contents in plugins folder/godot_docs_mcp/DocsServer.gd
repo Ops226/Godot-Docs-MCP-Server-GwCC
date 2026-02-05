@@ -87,16 +87,20 @@ func _build_class_cache():
 	_class_list.sort()
 	print("[DocsMCP] Cached " + str(_class_list.size()) + " classes")
 
-func _rpc_get_class_doc(p_class_name):
-	if p_class_name == null or p_class_name.is_empty():
+func _rpc_get_class_doc(params):
+	if params == null or not params is Dictionary:
+		return {"error": "params must be a dictionary"}
+	
+	var classname = params.get("class_name", "")
+	if classname.is_empty():
 		return {"error": "class_name parameter is required"}
 	
-	if not ClassDB.class_exists(p_class_name):
-		return {"error": "Class '" + p_class_name + "' not found"}
+	if not ClassDB.class_exists(classname):
+		return {"error": "Class '" + classname + "' not found"}
 	
 	var doc = {}
-	doc["name"] = p_class_name
-	doc["inherits"] = ClassDB.get_parent_class(p_class_name)
+	doc["name"] = classname
+	doc["inherits"] = ClassDB.get_parent_class(classname)
 	doc["properties"] = []
 	doc["methods"] = []
 	doc["signals"] = []
@@ -104,8 +108,12 @@ func _rpc_get_class_doc(p_class_name):
 	
 	return doc
 
-func _rpc_search_classes(pattern):
-	if pattern == null or pattern.is_empty():
+func _rpc_search_classes(params):
+	if params == null or not params is Dictionary:
+		return {"error": "params must be a dictionary"}
+	
+	var pattern = params.get("pattern", "")
+	if pattern.is_empty():
 		return {"error": "pattern parameter is required"}
 	
 	var results = []
@@ -115,45 +123,61 @@ func _rpc_search_classes(pattern):
 	
 	return {"pattern": pattern, "results": results}
 
-func _rpc_get_class_methods(p_class_name):
-	if p_class_name == null or p_class_name.is_empty():
+func _rpc_get_class_methods(params):
+	if params == null or not params is Dictionary:
+		return {"error": "params must be a dictionary"}
+	
+	var classname = params.get("class_name", "")
+	if classname.is_empty():
 		return {"error": "class_name parameter is required"}
 	
-	if not ClassDB.class_exists(p_class_name):
-		return {"error": "Class '" + p_class_name + "' not found"}
+	if not ClassDB.class_exists(classname):
+		return {"error": "Class '" + classname + "' not found"}
 	
-	var method_list = ClassDB.class_get_method_list(p_class_name, true)
-	return {"class_name": p_class_name, "methods": method_list}
+	var method_list = ClassDB.class_get_method_list(classname, true)
+	return {"class_name": classname, "methods": method_list}
 
-func _rpc_get_class_properties(p_class_name):
-	if p_class_name == null or p_class_name.is_empty():
+func _rpc_get_class_properties(params):
+	if params == null or not params is Dictionary:
+		return {"error": "params must be a dictionary"}
+	
+	var classname = params.get("class_name", "")
+	if classname.is_empty():
 		return {"error": "class_name parameter is required"}
 	
-	if not ClassDB.class_exists(p_class_name):
-		return {"error": "Class '" + p_class_name + "' not found"}
+	if not ClassDB.class_exists(classname):
+		return {"error": "Class '" + classname + "' not found"}
 	
-	var property_list = ClassDB.class_get_property_list(p_class_name, true)
-	return {"class_name": p_class_name, "properties": property_list}
+	var property_list = ClassDB.class_get_property_list(classname, true)
+	return {"class_name": classname, "properties": property_list}
 
-func _rpc_get_class_signals(p_class_name):
-	if p_class_name == null or p_class_name.is_empty():
+func _rpc_get_class_signals(params):
+	if params == null or not params is Dictionary:
+		return {"error": "params must be a dictionary"}
+	
+	var classname = params.get("class_name", "")
+	if classname.is_empty():
 		return {"error": "class_name parameter is required"}
 	
-	if not ClassDB.class_exists(p_class_name):
-		return {"error": "Class '" + p_class_name + "' not found"}
+	if not ClassDB.class_exists(classname):
+		return {"error": "Class '" + classname + "' not found"}
 	
-	var signal_list = ClassDB.class_get_signal_list(p_class_name, true)
-	return {"class_name": p_class_name, "signals": signal_list}
+	var signal_list = ClassDB.class_get_signal_list(classname, true)
+	return {"class_name": classname, "signals": signal_list}
 
-func _rpc_get_class_hierarchy(p_class_name):
-	if p_class_name == null or p_class_name.is_empty():
+func _rpc_get_class_hierarchy(params):
+	if params == null or not params is Dictionary:
+		return {"error": "params must be a dictionary"}
+	
+	var classname = params.get("class_name", "")
+	if classname.is_empty():
 		return {"error": "class_name parameter is required"}
 	
-	if not ClassDB.class_exists(p_class_name):
-		return {"error": "Class '" + p_class_name + "' not found"}
+	if not ClassDB.class_exists(classname):
+		return {"error": "Class '" + classname + "' not found"}
 	
-	var hierarchy = [p_class_name]
-	var current = p_class_name
+	var hierarchy = [classname]
+	var current = classname
 	
 	while current != "":
 		var parent = ClassDB.get_parent_class(current)
@@ -163,10 +187,14 @@ func _rpc_get_class_hierarchy(p_class_name):
 		current = parent
 	
 	hierarchy.reverse()
-	return {"class_name": p_class_name, "hierarchy": hierarchy}
+	return {"class_name": classname, "hierarchy": hierarchy}
 
-func _rpc_list_all_classes(filter = ""):
-	if filter == null or filter.is_empty():
+func _rpc_list_all_classes(params = {}):
+	if params == null or not params is Dictionary:
+		params = {}
+	
+	var filter = params.get("filter", "")
+	if filter.is_empty():
 		return {"classes": _class_list, "count": _class_list.size()}
 	
 	var results = []
