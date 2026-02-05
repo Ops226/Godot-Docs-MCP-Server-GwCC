@@ -1,10 +1,7 @@
 # Godot Documentation MCP - Live Connection Setup
 
-## ✅ Configuration Complete!
 
-Your Cline MCP server is now configured to connect to the **live Godot Editor** via WebSocket.
-
-## 📋 Configuration Details
+##  Configuration Details
 ```json
 {
   "mcpServers": {
@@ -21,7 +18,7 @@ Your Cline MCP server is now configured to connect to the **live Godot Editor** 
 }
 ```
 
-## 🚀 How to Use
+## How to Use
 
 ### Step 1: Start Godot Editor
 1. Open your Godot project (`gw2cc`)
@@ -48,7 +45,7 @@ Now you can ask Cline questions about Godot classes:
 - "What properties does Control have?"
 - "List all signals that Node emits"
 
-## 🔧 Available Tools
+## Available Tools
 
 The MCP server provides these tools to Cline:
 
@@ -60,7 +57,7 @@ The MCP server provides these tools to Cline:
 6. **get_class_hierarchy** - Get inheritance hierarchy
 7. **list_all_classes** - List all available classes (1504 total)
 
-## 🎯 Benefits of Live Connection
+## Benefits of Live Connection
 
 ✅ **Real-time Data**: Direct access to Godot's ClassDB
 ✅ **Always Current**: No need to update documentation files
@@ -68,7 +65,7 @@ The MCP server provides these tools to Cline:
 ✅ **Fast Performance**: Direct WebSocket connection
 ✅ **Editor Integration**: Access to live Godot Editor state
 
-## ⚠️ Troubleshooting
+## Troubleshooting
 
 ### Connection Refused
 **Problem**: MCP server can't connect to Godot
@@ -91,7 +88,7 @@ The MCP server provides these tools to Cline:
 - Check that Node.js is installed
 - Restart Cline/Windsurf
 
-## 📁 File Locations
+##  File Locations
 
 **Godot Plugin**:
 - `gw2cc/plugins/godot_docs_mcp/DocsServer.gd`
@@ -105,7 +102,7 @@ The MCP server provides these tools to Cline:
 **Configuration**:
 - `C:\Users\UserName\AppData\Roaming\Windsurf - Next\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`
 
-## 🔍 Testing the Connection
+##  Testing the Connection
 
 You can test the connection manually:
 
@@ -131,6 +128,6 @@ async def test():
 asyncio.run(test())
 ```
 
-## 🎉 You're All Set!
+## You're All Set!
 
 The live connection is now configured and ready to use. Just start Godot Editor and restart Cline to begin querying Godot's class documentation in real-time!
